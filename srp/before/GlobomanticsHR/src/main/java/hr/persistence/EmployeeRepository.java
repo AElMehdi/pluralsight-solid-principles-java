@@ -3,7 +3,12 @@ package hr.persistence;
 import hr.personnel.Employee;
 import hr.personnel.FullTimeEmployee;
 import hr.personnel.PartTimeEmployee;
+import hr.serializers.EmployeeFileSerializer;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,15 +20,29 @@ we are storing employees in the file system.
 
 public class EmployeeRepository {
 
-    public List<Employee> findAll(){
+   private EmployeeFileSerializer employeeFileSerializer;
 
-        // Employees are kept in memory for simplicity
-        Employee anna = new FullTimeEmployee("Anna Smith", 2000);
-        Employee billy = new FullTimeEmployee("Billy Leech", 920);
+   public EmployeeRepository(EmployeeFileSerializer employeeFileSerializer) {
+      this.employeeFileSerializer = employeeFileSerializer;
+   }
 
-        Employee steve = new PartTimeEmployee("Steve Jones", 800);
-        Employee magda = new PartTimeEmployee("Magda Iovan", 920);
+   public void save(Employee employee) throws IOException {
+      StringBuilder sb = employeeFileSerializer.serialize(employee);
 
-        return Arrays.asList(anna, billy, steve, magda);
-    }
+      Path path = Paths.get(employee.getFullName()
+            .replace(" ", "_") + ".rec");
+      Files.write(path, sb.toString().getBytes());
+   }
+
+   public List<Employee> findAll() {
+
+      // Employees are kept in memory for simplicity
+      Employee anna = new FullTimeEmployee("Anna Smith", 2000);
+      Employee billy = new FullTimeEmployee("Billy Leech", 920);
+
+      Employee steve = new PartTimeEmployee("Steve Jones", 800);
+      Employee magda = new PartTimeEmployee("Magda Iovan", 920);
+
+      return Arrays.asList(anna, billy, steve, magda);
+   }
 }
