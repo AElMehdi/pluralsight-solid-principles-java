@@ -4,6 +4,7 @@ import hr.documents.Payslip;
 import hr.logging.ConsoleLogger;
 import hr.persistence.EmployeeFileSerializer;
 import hr.persistence.EmployeeFileRepository;
+import hr.persistence.EmployeeRepository;
 import hr.personnel.Employee;
 
 import java.time.Month;
@@ -14,7 +15,7 @@ public class ExportPayslipMain {
         // Create dependencies
         ConsoleLogger consoleLogger = new ConsoleLogger();
         EmployeeFileSerializer employeeFileSerializer = new EmployeeFileSerializer();
-        EmployeeFileRepository repository = new EmployeeFileRepository(employeeFileSerializer);
+        EmployeeRepository repository = new EmployeeFileRepository(employeeFileSerializer);
 
         // Grab employees
         List<Employee> employees = repository.findAll();

@@ -1,7 +1,9 @@
 package hr.persistence;
 
-import hr.logging.ConsoleLogger;
-import hr.personnel.*;
+import hr.personnel.Employee;
+import hr.personnel.FullTimeEmployee;
+import hr.personnel.Intern;
+import hr.personnel.PartTimeEmployee;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,13 +21,14 @@ application we could use the database for persistence. In this demo,
 we are storing employees in the file system.
  */
 
-public class EmployeeFileRepository {
+public class EmployeeFileRepository implements EmployeeRepository {
     private EmployeeFileSerializer serializer;
 
     public EmployeeFileRepository(EmployeeFileSerializer serializer) {
         this.serializer = serializer;
     }
 
+    @Override
     public List<Employee> findAll() {
         List<Employee> employees = new ArrayList<>();
 
@@ -52,6 +54,7 @@ public class EmployeeFileRepository {
         return employees;
     }
 
+    @Override
     public void save(Employee employee) throws IOException {
         String serializedString = this.serializer.serialize(employee);
 

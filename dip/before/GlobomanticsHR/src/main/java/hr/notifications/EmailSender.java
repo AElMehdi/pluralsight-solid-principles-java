@@ -2,13 +2,18 @@ package hr.notifications;
 
 import hr.personnel.Employee;
 
-import javax.mail.*;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.mail.PasswordAuthentication;
-import java.util.Properties;
 
 /*
 Email sender; To make it work you need to supply correct mail
@@ -16,7 +21,7 @@ server data; The current configuration properties will not be
 valid.
  */
 public class EmailSender {
-    public static void notify(Employee employee){
+    public void notify(Employee employee){
         // Configure email server
         Properties prop = new Properties();
         prop.put("mail.smtp.auth", true);

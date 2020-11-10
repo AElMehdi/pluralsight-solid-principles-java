@@ -1,6 +1,9 @@
 package hr.main;
 
+import hr.notifications.EmailSender;
 import hr.payment.PaymentProcessor;
+import hr.persistence.EmployeeFileRepository;
+import hr.persistence.EmployeeFileSerializer;
 
 public class PayEmployeesMain {
 
@@ -10,7 +13,9 @@ public class PayEmployeesMain {
      */
 
     public static void main(String[] args) {
-        PaymentProcessor paymentProcessor = new PaymentProcessor();
+        EmployeeFileRepository employeeRepository = new EmployeeFileRepository(new EmployeeFileSerializer());
+        EmailSender emailNotifier = new EmailSender();
+        PaymentProcessor paymentProcessor = new PaymentProcessor(employeeRepository, emailNotifier);
         int totalPayments = paymentProcessor.sendPayments();
         System.out.println("Total payments " + totalPayments);
     }
