@@ -5,7 +5,10 @@ Common interface used in application when there is
 a need for document exports
  */
 public interface ExportableDocument {
+    // Problem down here
     byte[] toPdf();
+
     String toJson();
+
     String toTxt();
 }
