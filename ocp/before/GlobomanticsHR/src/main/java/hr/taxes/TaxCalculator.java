@@ -9,6 +9,7 @@ public class TaxCalculator {
 
 
     public double calculate(Employee employee) {
+        // TODO EA: Use a strategy pattern for OCP
         return BASE_HEALTH_INSURANCE +
                 (employee.getMonthlyIncome() * RETIREMENT_TAX_PERCENTAGE) / 100 +
                 (employee.getMonthlyIncome() * INCOME_TAX_PERCENTAGE) / 100;
