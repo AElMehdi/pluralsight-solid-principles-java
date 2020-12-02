@@ -8,6 +8,7 @@ public class Subcontractor extends Employee {
 
     @Override
     public void requestTimeOff(int nbDays, Employee manager) {
+        // TODO EA: Problem lays in here, that's violates the LSP
         throw new RuntimeException("Not implemented");
     }
 
